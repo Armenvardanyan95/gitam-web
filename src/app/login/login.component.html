@@ -1,0 +1,35 @@
+<mat-card>
+  <mat-card-header>
+    <h4 mat-card-title>Մուտք Գործել</h4>
+  </mat-card-header>
+
+  <mat-card-content [formGroup]="form">
+    <div class="formcontrol">
+      <mat-form-field>
+        <label>Էլ․ հասցե</label>
+        <input matInput formControlName="email"/>
+      </mat-form-field>
+
+      <div *ngIf="form.get('email').invalid && form.get('email').touched" class="errors">
+        <p *ngIf="form.get('email').hasError('required')">Պարտադիր դաշտ</p>
+        <p *ngIf="form.get('email').hasError('email')">Սխալ Էլ․ հասցե</p>
+      </div>
+    </div>
+
+    <div class="formcontrol">
+      <mat-form-field>
+        <label>Գաղտնաբառ</label>
+        <input matInput type="password" formControlName="password"/>
+      </mat-form-field>
+
+      <div *ngIf="form.get('password').invalid && form.get('password').touched" class="errors">
+        <p *ngIf="form.get('password').hasError('required')">Պարտադիր դաշտ</p>
+      </div>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <a [routerLink]="['/register']">Գրանցվել</a>
+    <button (click)="signIn()" [disabled]="form.invalid">Մտնել</button>
+  </mat-card-actions>
+</mat-card>

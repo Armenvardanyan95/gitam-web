@@ -1,18 +1,68 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TokenInterceptor } from './common/services/token.interceptor';
+import { LoginComponent } from './login/login.component';
+import { MatCardModule, MatButtonModule, MatInputModule, MatIconModule, MatSnackBarModule, MatTooltipModule, MatProgressSpinnerModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from './common/common.module';
+import { HomeComponent } from './pages/home/home.component';
+import { ArticleDetailComponent } from './pages/article-detail/article-detail.component';
+import { TagDetailComponent } from './pages/tag-detail/tag-detail.component';
+import { BookmarksComponent } from './pages/bookmarks/bookmarks.component';
+import { SearchComponent } from './pages/search/search.component';
+import { authReducer, bookmarksReducer, articlesReducer, finishLoadingReducer, searchResultsReducer, articlesByTagReducer } from './state/reducers';
+import { BookmarksEffects } from './state/effects/bookmarks.effect';
+import { AppEffects } from './state/effects/app.effects';
+import { AuthEffects } from './state/effects/auth.effects';
+import { MessagesEffects } from './state/effects/messages.effects';
+import { ArticlesEffects } from './state/effects/articles.effects';
+import { RegistrationComponent } from './pages/registration/registration.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    HomeComponent,
+    ArticleDetailComponent,
+    TagDetailComponent,
+    BookmarksComponent,
+    SearchComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatInputModule,
+    MatIconModule,
+    MatSnackBarModule,
+    MatTooltipModule,
+    MatProgressSpinnerModule,
+    CommonModule,
+    StoreModule.forRoot({
+      isAuth: authReducer,
+      bookmarks: bookmarksReducer,
+      articles: articlesReducer,
+      finishLoading: finishLoadingReducer,
+      searchResults: searchResultsReducer,
+      articlesByTag: articlesByTagReducer,
+    }),
+    EffectsModule.forRoot([AppEffects, AuthEffects, BookmarksEffects, ArticlesEffects, MessagesEffects]),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

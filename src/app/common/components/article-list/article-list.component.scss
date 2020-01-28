@@ -1,0 +1,10 @@
+.article-list {
+  margin: auto;
+  width: 60%;
+}
+
+@media screen and (max-width: 480px) {
+  .article-list {
+    width: 85% !important;
+  }
+}

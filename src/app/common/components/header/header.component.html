@@ -1,0 +1,27 @@
+<nav>
+  <div class="container">
+    <a [routerLink]="['/']">Գիտ․եմ</a>
+    <div class="left-container">
+      <div class="search" (click)="$event.stopPropagation()">
+        <button mat-button (click)="search$.next(); inp.focus()" matTooltip="Փնտրել">
+          <mat-icon>search</mat-icon>
+        </button>
+        <input placeholder="Փնտրել" #inp (keyup)="search($event, inp.value)"
+              [ngClass]="{open: (searchOpen$ | async), closed: !(searchOpen$ | async)}"/>
+      </div>
+      <a [routerLink]="['bookmarks']" mat-button matTooltip="Պահպանված նյութեր">
+        <mat-icon>bookmarks</mat-icon>
+      </a>
+      <a *ngIf="!(isAuth$ | async)" [ngClass]="{'open-related': (searchOpen$ | async)}" [routerLink]="['login']" mat-stroked-button class="login-btn">
+        Մուտք գործել
+      </a>
+      <button *ngIf="isAuth$ | async" [ngClass]="{'open-related': (searchOpen$ | async)}" mat-button [matMenuTriggerFor]="personalMenu" matTooltip="Անձնական Տվյալներ">
+        <mat-icon>person</mat-icon>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<mat-menu #personalMenu="matMenu">
+  <button mat-menu-item (click)="signOut()">Դուրս Գալ</button>
+</mat-menu>

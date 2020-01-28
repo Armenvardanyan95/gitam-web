@@ -1,0 +1,63 @@
+nav {
+  display: flex;
+  height: 60px;
+  border-bottom: thick solid green;
+  margin-bottom: 5px;
+
+  .container {
+    margin: auto;
+    margin-bottom: 10px;
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+
+    .left-container {
+      display: flex;
+    }
+
+    a {
+      font-weight: bolder;
+      font-size: 25px;
+      text-decoration: none;
+    }
+
+    .login-btn {
+      font-size: 16px;
+    }
+
+    .search {
+      display: flex;
+
+      input {
+        border: none;
+        outline: none;
+        transition: width 2s;
+      }
+
+      button {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+      }
+
+      .closed {
+        width: 0;
+      }
+
+      .open {
+        width: auto;
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+  .container {
+    width: 100% !important;
+  }
+
+  .open-related {
+    display: none !important;
+  }
+}

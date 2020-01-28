@@ -1,0 +1,8 @@
+<div class="search-box">
+  <input #inp [value]="query" placeholder="Փնտրել"/>
+  <span class="icon">
+    <mat-icon>search</mat-icon>
+  </span>
+</div>
+<app-article-list [articles]="searchResults$ | async" (loadMore)="loadArticles()" [finished]="finished$ | async">
+</app-article-list>

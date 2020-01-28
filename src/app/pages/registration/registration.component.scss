@@ -1,0 +1,16 @@
+.registration-page {
+  margin: auto;
+  width: 50%;
+  margin-top: 25px;
+
+  mat-card {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .registration-page {
+    margin-top: 10px;
+    width: 85%;
+  }
+}

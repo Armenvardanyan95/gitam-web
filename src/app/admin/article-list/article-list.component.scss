@@ -1,0 +1,18 @@
+.article-list-page {
+  margin: auto;
+  margin-top: 20px;
+  width: 80%;
+
+  table {
+    width: 100%;
+
+    a {
+      text-decoration: none;
+      color: purple;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

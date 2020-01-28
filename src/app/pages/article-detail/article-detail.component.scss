@@ -1,0 +1,48 @@
+.article-detail-page {
+  margin: auto;
+  margin-bottom: 10px;
+  width: 60%;
+
+  .subtitle {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  a {
+    color: blue !important;
+  }
+
+  .actions-tags {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .back-button-container {
+    height: 100%;
+    width: 15%;
+    background-color: transparent;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+
+    &:hover {
+      background-color: gray;
+      opacity: 0.25;
+      color: black;
+
+      span {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .article-detail-page {
+    width: 95% !important;
+    font-size: 25px;
+  }
+}

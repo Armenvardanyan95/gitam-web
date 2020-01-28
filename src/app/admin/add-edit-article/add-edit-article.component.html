@@ -1,0 +1,49 @@
+<mat-card>
+  <mat-card-header>
+    <h2 mat-card-title>{{editedArticle ? 'Խմբագրել հոդվածը' : 'Նոր հոդված'}}</h2>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-form-field>
+      <input matInput placeholder="Վերնագիր" [formControl]="form.get('title')"/>
+    </mat-form-field>
+
+    <div class="editor">
+      <p-editor [formControl]="form.get('text')"></p-editor>
+    </div>
+
+    <div>
+      <mat-form-field class="example-chip-list">
+          <mat-chip-list #chipList aria-label="Tag selection">
+            <mat-chip *ngFor="let tag of form.get('tags').value" [selectable]="true"
+                      [removable]="true" (removed)="removeFromTags(tag)">
+              {{ tag }}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Հեշթեգեր"
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="false"
+                    (matChipInputTokenEnd)="addTag($event)">
+          </mat-chip-list>
+        </mat-form-field>
+
+        <div class="upload-container">
+          <button mat-raised-button (click)="fileInput.click()">Կցել նկար</button>
+          <p *ngIf="file">{{ file.name }}</p>
+          <input type="file" #fileInput style="visibility: hidden;" (change)="uploadFile($event.target.files[0])"/>
+        </div>
+
+        <mat-spinner *ngIf="uploadLoading"></mat-spinner>
+
+        <div *ngIf="editedArticle && editedArticle.image && !uploadLoading" class="article-image-container">
+          <img [src]="editedArticle.image" width="700" height="400"/>
+        </div>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button (click)="save()">Պահպանել</button>
+    <button *ngIf="!editedArticle" mat-raised-button (click)="save(true)">Պահպանել և ստեղծել մեկ ուրիշը</button>
+  </mat-card-actions>
+</mat-card>

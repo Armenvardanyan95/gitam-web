@@ -1,0 +1,23 @@
+mat-card {
+  margin: auto;
+  margin-top: 50px;
+  width: 40%;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .errors {
+    p {
+      color: red;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .mat-card {
+    margin-top: 10px;
+    width: 90%;
+  }
+}
+

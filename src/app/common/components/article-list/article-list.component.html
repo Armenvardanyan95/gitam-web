@@ -1,0 +1,6 @@
+<div class="article-list">
+  <app-infinite-scroll (scrolled)="loadMore.emit()" [finished]="finished">
+    <app-article-item *ngFor="let article of articles" [article]="article"></app-article-item>
+  </app-infinite-scroll>
+</div>
+
