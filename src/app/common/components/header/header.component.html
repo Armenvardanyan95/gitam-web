@@ -9,7 +9,7 @@
         <input placeholder="Փնտրել" #inp (keyup)="search($event, inp.value)"
               [ngClass]="{open: (searchOpen$ | async), closed: !(searchOpen$ | async)}"/>
       </div>
-      <a [routerLink]="['bookmarks']" mat-button matTooltip="Պահպանված նյութեր">
+      <a [routerLink]="['bookmarks']" [ngClass]="{'open-related': (searchOpen$ | async)}" mat-button matTooltip="Պահպանված նյութեր">
         <mat-icon>bookmarks</mat-icon>
       </a>
       <a *ngIf="!(isAuth$ | async)" [ngClass]="{'open-related': (searchOpen$ | async)}" [routerLink]="['login']" mat-stroked-button class="login-btn">

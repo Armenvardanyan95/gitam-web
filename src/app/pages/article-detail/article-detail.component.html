@@ -1,7 +1,5 @@
 <div class="article-detail-page">
-  <ng-container *ngIf="loading">
-    Loading...
-  </ng-container>
+  <mat-spinner *ngIf="loading"></mat-spinner>
 
   <ng-container *ngIf="article">
     <h2>{{ article.title }}</h2>
@@ -14,7 +12,7 @@
       <app-tags [tags]="article.tags"></app-tags>
       <div class="actions">
         <button mat-button
-                [matTooltip]="(isInBookmarks$ | async) ? 'Հեռացնել պահպանած հոդվածներից' : 'Պահպանել հոդվախը'">
+                [matTooltip]="(isInBookmarks$ | async) ? 'Հեռացնել պահպանած հոդվածներից' : 'Պահպանել հոդվածը'">
           <mat-icon *ngIf="!(isInBookmarks$ | async)" (click)="addToBookmarks()">bookmark_border</mat-icon>
           <mat-icon *ngIf="isInBookmarks$ | async" (click)="removeFromBookmarks()">bookmark</mat-icon>
         </button>

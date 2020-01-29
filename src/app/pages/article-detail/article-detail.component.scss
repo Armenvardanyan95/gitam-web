@@ -3,6 +3,10 @@
   margin-bottom: 10px;
   width: 60%;
 
+  mat-spinner {
+    width: 100%;
+  }
+
   .subtitle {
     display: flex;
     justify-content: space-between;
@@ -44,5 +48,9 @@
   .article-detail-page {
     width: 95% !important;
     font-size: 25px;
+  }
+
+  .back-button-container {
+    display: none;
   }
 }
