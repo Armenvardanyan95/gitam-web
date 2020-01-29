@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { MatBottomSheet } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 
 import { ArticleService } from 'src/app/common/services/article.service';
 import { ArticleModel } from 'src/app/common/models/article';
-import { GlobalState, allBookmarkIds } from 'src/app/state/reducers';
+import { allBookmarkIds } from 'src/app/state/selectors';
 import { addToBookmarks, removeFromBookmarks } from 'src/app/state/actions';
-import { MatBottomSheet } from '@angular/material';
 import { ShareOnSocialMediaComponent } from 'src/app/common/components/share-on-social-media/share-on-social-media.component';
 import { User } from 'src/app/common/models/user';
+import { GlobalState } from 'src/app/state/types';
 
 @Component({
   selector: 'app-article-detail',

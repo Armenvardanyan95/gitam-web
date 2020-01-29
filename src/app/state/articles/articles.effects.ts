@@ -4,9 +4,13 @@ import { Action, Store } from '@ngrx/store';
 import { from } from 'rxjs';
 import { mergeMap, switchMap, takeUntil, filter, map } from 'rxjs/operators';
 
-import { loadArticles, loadArticlesSuccess, finishLoadingFeed, searchArticles, initiateSearchArticles, continueSearchArticles, initiateSearchArticlesSuccess, finishLoadingSearch, continueSearchArticlesSuccess, loadArticlesByTag, reloadArticlesByTag, continueLoadingArticlesByTag, reloadArticlesByTagSuccess, finishLoadingByTag, continueLoadingArticlesByTagSuccess } from '../actions';
+import { loadArticles, loadArticlesSuccess, finishLoadingFeed, searchArticles, initiateSearchArticles,
+         continueSearchArticles, initiateSearchArticlesSuccess, finishLoadingSearch, continueSearchArticlesSuccess,
+         loadArticlesByTag, reloadArticlesByTag, continueLoadingArticlesByTag, reloadArticlesByTagSuccess, finishLoadingByTag,
+         continueLoadingArticlesByTagSuccess } from '../actions';
 import { ArticleService } from 'src/app/common/services/article.service';
-import { GlobalState, finishedLoadingFeed, finishedLoadingByTag } from '../reducers';
+import { finishedLoadingFeed } from '../selectors';
+import { GlobalState } from '../types';
 
 @Injectable()
 export class ArticlesEffects {

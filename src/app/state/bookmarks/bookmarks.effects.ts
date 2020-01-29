@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Observable } from 'rxjs';
 import { mergeMap, switchMap, toArray, map, withLatestFrom, tap, filter } from 'rxjs/operators';
 
 import { loadBookmarks, loadBookmarksSuccess, addToBookmarks, addToBookmarksSuccess,
          removeFromBookmarks, removeFromBookmarksSuccess, showLoginWarning } from '../actions';
 import { BookmarkService } from 'src/app/common/services/bookmark.service';
-import { Store } from '@ngrx/store';
-import { GlobalState, allBookmarks } from '../reducers';
-import { Observable } from 'rxjs';
+import { allBookmarks } from '../selectors';
+import { GlobalState } from '../types';
 
 function requireLoginWithNotice(thisArg: {store: Store<Partial<GlobalState>>}) {
   return (source: Observable<any>) => source.pipe(

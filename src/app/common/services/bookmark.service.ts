@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 
 import { Environment } from '../models/environment';
 import { ArticleModel } from '../models/article';
-import { Bookmark } from 'src/app/state/actions';
 import { User } from '../models/user';
 
 export interface RawBookmark {

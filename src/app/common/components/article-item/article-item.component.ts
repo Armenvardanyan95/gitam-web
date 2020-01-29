@@ -2,8 +2,8 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { ArticleModel } from '../../models/article';
-import { Environment } from '../../models/environment';
-import { GlobalState, allBookmarkIds } from 'src/app/state/reducers';
+import { allBookmarkIds } from 'src/app/state/selectors';
+import { GlobalState } from 'src/app/state/types';
 import { map } from 'rxjs/operators';
 import { addToBookmarks, removeFromBookmarks } from 'src/app/state/actions';
 import { MatBottomSheet } from '@angular/material';
@@ -24,8 +24,7 @@ export class ArticleItemComponent {
   constructor(
     private readonly store: Store<GlobalState>,
     private readonly bottomSheet: MatBottomSheet,
-  ) {
-  }
+  ) { }
 
   @Input() article: ArticleModel = null;
 

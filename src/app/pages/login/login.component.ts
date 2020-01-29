@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import { AuthService } from '../common/services/auth.service';
-import { signIn } from '../state/actions';
+import { AuthService } from '../../common/services/auth.service';
+import { signIn } from '../../state/actions';
 
 @Component({
   selector: 'app-login',

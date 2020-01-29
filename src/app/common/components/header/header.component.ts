@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { fromEvent, Subject, Observable, merge } from 'rxjs';
 import { takeUntil, map, mapTo } from 'rxjs/operators';
 
-import { GlobalState } from 'src/app/state/reducers';
+import { GlobalState } from 'src/app/state/types';
 import { signOut } from 'src/app/state/actions';
 
 @Component({
@@ -14,10 +14,10 @@ import { signOut } from 'src/app/state/actions';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements AfterViewInit, OnDestroy {
+  isAuth$ = this.store.select(state => state.isAuth);
   search$ = new Subject<void>();
   searchOpen$: Observable<boolean>;
   destroy$ = new Subject<void>();
-  isAuth$ = this.store.select(state => state.isAuth);
 
   constructor(
     private readonly router: Router,

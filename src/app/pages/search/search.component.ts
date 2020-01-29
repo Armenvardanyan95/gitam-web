@@ -1,12 +1,11 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Subject, fromEvent } from 'rxjs';
 import { debounceTime, takeUntil, distinctUntilChanged, map } from 'rxjs/operators';
 
-import { ArticleModel } from 'src/app/common/models/article';
-import { ArticleService } from 'src/app/common/services/article.service';
-import { Store } from '@ngrx/store';
-import { GlobalState, searchResults } from 'src/app/state/reducers';
+import { searchResults } from 'src/app/state/selectors';
+import { GlobalState } from 'src/app/state/types';
 import { finishLoadingSearch, searchArticles, resetFinishSearch } from 'src/app/state/actions';
 
 @Component({

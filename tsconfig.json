@@ -11,6 +11,9 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
+    "paths": {
+      "@state": ["./src/app/state/*"]
+    },
     "typeRoots": [
       "node_modules/@types"
     ],

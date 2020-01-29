@@ -1,11 +1,13 @@
 import { User } from './user';
 
 export class ArticleModel {
-  id?: number;
-  title: string;
-  text: string;
-  tags: string;
-  author: number | User;
-  image?: string;
-  createdAt?: string;
+  constructor(
+    public title: string,
+    public text: string,
+    public tags: string,
+    public author: number | User,
+    public id?: number,
+    public image?: string,
+    public createdAt?: string,
+  ) {}
 }

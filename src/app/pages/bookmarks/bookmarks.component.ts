@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { GlobalState, allBookmarks } from 'src/app/state/reducers';
+import { allBookmarks } from 'src/app/state/selectors';
+import { GlobalState } from 'src/app/state/types';
+
+
 
 @Component({
   selector: 'app-bookmarks',

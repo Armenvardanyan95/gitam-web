@@ -57,14 +57,10 @@ export class AddEditArticleComponent implements OnInit {
   }
 
   async save(createAnother = false) {
-    const article = new ArticleSaveModel();
     const { value, valid } = this.form;
     if (valid) {
       const { id } = decode(localStorage.getItem('token'));
-      article.author = id;
-      article.tags = (value.tags as string[]).join(',');
-      article.text = value.text;
-      article.title = value.title;
+      const article = new ArticleSaveModel(value.title, value.text, (value.tags as string[]).join(','), id);
       article.image = value.image;
 
       try {

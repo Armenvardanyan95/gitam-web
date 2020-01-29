@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { GlobalState, allArticles, finishedLoadingFeed } from 'src/app/state/reducers';
-import { loadArticles, finishLoadingFeed } from 'src/app/state/actions';
+import { allArticles, finishedLoadingFeed } from 'src/app/state/selectors';
+import { GlobalState } from 'src/app/state/types';
+import { loadArticles } from 'src/app/state/actions';
 
 @Component({
   selector: 'app-home',

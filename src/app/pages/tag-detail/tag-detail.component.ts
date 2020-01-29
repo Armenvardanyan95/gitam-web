@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { GlobalState, articlesByTag, finishedLoadingByTag } from 'src/app/state/reducers';
+import { articlesByTag, finishedLoadingByTag } from 'src/app/state/selectors';
+import { GlobalState } from 'src/app/state/types';
 import { loadArticlesByTag, resetFinishSearch } from 'src/app/state/actions';
 
 @Component({

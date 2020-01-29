@@ -8,8 +8,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenInterceptor } from './common/services/token.interceptor';
-import { LoginComponent } from './login/login.component';
-import { MatCardModule, MatButtonModule, MatInputModule, MatIconModule, MatSnackBarModule, MatTooltipModule, MatProgressSpinnerModule } from '@angular/material';
+import { LoginComponent } from './pages/login/login.component';
+import { MatCardModule, MatButtonModule, MatInputModule, MatIconModule, MatSnackBarModule,
+         MatTooltipModule, MatProgressSpinnerModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from './common/common.module';
 import { HomeComponent } from './pages/home/home.component';
@@ -17,12 +18,9 @@ import { ArticleDetailComponent } from './pages/article-detail/article-detail.co
 import { TagDetailComponent } from './pages/tag-detail/tag-detail.component';
 import { BookmarksComponent } from './pages/bookmarks/bookmarks.component';
 import { SearchComponent } from './pages/search/search.component';
-import { authReducer, bookmarksReducer, articlesReducer, finishLoadingReducer, searchResultsReducer, articlesByTagReducer } from './state/reducers';
-import { BookmarksEffects } from './state/effects/bookmarks.effect';
-import { AppEffects } from './state/effects/app.effects';
-import { AuthEffects } from './state/effects/auth.effects';
-import { MessagesEffects } from './state/effects/messages.effects';
-import { ArticlesEffects } from './state/effects/articles.effects';
+import { authReducer, bookmarksReducer, articlesReducer, finishLoadingReducer,
+         searchResultsReducer, articlesByTagReducer } from './state/reducers';
+import { BookmarksEffects, ArticlesEffects, AppEffects, MessagesEffects, AuthEffects } from 'src/app/state/effects';
 import { RegistrationComponent } from './pages/registration/registration.component';
 
 @NgModule({
