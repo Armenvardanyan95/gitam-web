@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 
 import { articlesByTag, finishedLoadingByTag } from 'src/app/state/selectors';
@@ -21,12 +22,14 @@ export class TagDetailComponent implements OnInit {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly store: Store<GlobalState>,
+    private title: Title,
   ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.page = 0;
       this.tagName = params.get('name');
+      this.title.setTitle(this.tagName);
       this.store.dispatch(resetFinishSearch());
       this.loadArticles();
     });

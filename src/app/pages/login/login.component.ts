@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -23,9 +24,11 @@ export class LoginComponent implements OnInit {
     private readonly authService: AuthService,
     private readonly router: Router,
     private readonly store: Store<unknown>,
+    private readonly title: Title,
   ) { }
 
   ngOnInit() {
+    this.title.setTitle('Մուտք Գործել');
   }
 
   async signIn() {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 import { AuthService } from 'src/app/common/services/auth.service';
 import { User } from 'src/app/common/models/user';
@@ -23,9 +24,11 @@ export class RegistrationComponent implements OnInit {
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
     private readonly authService: AuthService,
+    private readonly title: Title,
   ) { }
 
   ngOnInit() {
+    this.title.setTitle('Գրանցվել');
   }
 
   async submit() {

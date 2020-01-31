@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { Subject, fromEvent } from 'rxjs';
 import { debounceTime, takeUntil, distinctUntilChanged, map } from 'rxjs/operators';
@@ -30,12 +31,14 @@ export class SearchComponent implements OnInit, OnDestroy {
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly store: Store<GlobalState>,
+    private readonly title: Title,
   ) { }
 
   ngOnInit() {
     this.route.queryParamMap.subscribe(queryParams => {
       this.page = 0;
       this.query = queryParams.get('query');
+      this.title.setTitle(`Փնտրել՝ ${this.query}`);
       this.loadArticles();
     });
 

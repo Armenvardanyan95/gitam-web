@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { MatBottomSheet } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -36,6 +37,7 @@ export class ArticleDetailComponent implements OnInit {
     private readonly articleService: ArticleService,
     private readonly store: Store<GlobalState>,
     private readonly bottomSheet: MatBottomSheet,
+    private readonly title: Title,
   ) { }
 
   ngOnInit() {
@@ -63,6 +65,7 @@ export class ArticleDetailComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     try {
       this.article = await this.articleService.getArticle(id);
+      this.title.setTitle(this.article.title);
     } catch (error) {
       this.errorMessage = `Տեղի է ունեցել սխալ, խնդրում ենք փորձել մի փոքր ուշ`;
       console.error(error);

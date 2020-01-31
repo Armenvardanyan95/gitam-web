@@ -31,7 +31,7 @@ export class MessagesEffects {
 
   showLoginWarning$ = this.createMessageEffect(
     showLoginWarning,
-    'Այս գործոցությունը անելու համար անհրաժեշտ է մուտք գործել',
+    'Այս գործողությունը անելու համար անհրաժեշտ է մուտք գործել',
   );
 
   constructor(
