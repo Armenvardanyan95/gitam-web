@@ -1,6 +1,6 @@
 <nav>
   <div class="container">
-    <a [routerLink]="['/']">Գիտ․եմ</a>
+    <a [routerLink]="['/']" class="brand">Գիտ․եմ</a>
     <div class="left-container">
       <div class="search" (click)="$event.stopPropagation()">
         <button mat-button (click)="search$.next(); inp.focus()" matTooltip="Փնտրել">

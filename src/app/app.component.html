@@ -1,2 +1,5 @@
 <app-header></app-header>
 <router-outlet></router-outlet>
+<button mat-mini-fab *ngIf="hasScroll" (click)="scrollUp()" matTooltip="Դեպի Էջի Սկիզբ" class="scroll-up-btn">
+  <mat-icon>keyboard_arrow_up</mat-icon>
+</button>

@@ -29,7 +29,12 @@
   </mat-card-content>
 
   <mat-card-actions>
+    <div class="actions">
+      <button mat-button (click)="signIn()"
+        [disabled]="form.invalid" [matTooltip]="form.valid ? '' : 'Լրացրեք բոլոր դաշտերը'">
+        Մտնել
+      </button>
     <a [routerLink]="['/register']">Գրանցվել</a>
-    <button (click)="signIn()" [disabled]="form.invalid">Մտնել</button>
+    </div>
   </mat-card-actions>
 </mat-card>

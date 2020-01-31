@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { appLoaded, loadBookmarks, getAuthStatus} from '../actions';
-import { switchMap } from 'rxjs/operators';
+import { appLoaded, loadBookmarks, getAuthStatus, setAuthStatus } from '../actions';
+import { switchMap, filter } from 'rxjs/operators';
 
 @Injectable()
 export class AppEffects {
@@ -13,6 +13,12 @@ export class AppEffects {
       loadBookmarks(),
       getAuthStatus(),
     ])),
+  ));
+
+  authConfirmed$ = createEffect(() => this.actions$.pipe(
+    ofType(setAuthStatus),
+    filter(({isAuth}) => isAuth),
+    switchMap(() => [loadBookmarks()]),
   ));
 
   constructor(

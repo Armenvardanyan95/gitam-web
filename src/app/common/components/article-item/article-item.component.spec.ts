@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatCardModule, MatTooltipModule, MatIconModule, MatBottomSheetModule, MatCardTitle, MatCardSubtitle, MatIcon } from '@angular/material';
+import { MatCardModule, MatTooltipModule, MatIconModule, MatBottomSheetModule, MatCardTitle, MatCardSubtitle, MatIcon, MatBottomSheet } from '@angular/material';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
@@ -13,8 +13,10 @@ import { Bookmark, GlobalState } from 'src/app/state/types';
 import { allBookmarkIds } from 'src/app/state/selectors';
 import { DatePipe, CommonModule } from '@angular/common';
 import { ElementRef } from '@angular/core';
+import { addToBookmarks } from 'src/app/state/actions';
+import { ShareOnSocialMediaComponent } from '../share-on-social-media/share-on-social-media.component';
 
-fdescribe('ArticleItemComponent', () => {
+describe('ArticleItemComponent', () => {
   let component: ArticleItemComponent;
   let fixture: ComponentFixture<ArticleItemComponent>;
   let datePipe = new DatePipe('en');
@@ -57,10 +59,35 @@ fdescribe('ArticleItemComponent', () => {
 
   it('should show not bookmarked before being added to bookmarks, then change when is bookmarked', () => {
     const bookmarkButtonEl = fixture.debugElement.query(By.css('button'));
-    const iconEl = bookmarkButtonEl.query(By.directive(MatIcon));
+    let iconEl = bookmarkButtonEl.query(By.directive(MatIcon));
     expect(iconEl.nativeElement.textContent).toContain('bookmark_border');
     mockBookmarksSelector.setResult([1]);
     mockStore.refreshState();
     fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      iconEl = bookmarkButtonEl.query(By.directive(MatIcon));
+      expect(iconEl.nativeElement.textContent).not.toContain('bookmark_border');
+    });
+
+  });
+
+  it('should allow to bookmark and unbookmark the article', () => {
+    const bookmarkButtonEl = fixture.debugElement.query(By.css('button'));
+    let iconEl = bookmarkButtonEl.query(By.directive(MatIcon));
+    const bookmarkSpy = spyOn(component, 'addToBookmarks').and.callThrough();
+    const bookmarkActionSpy = spyOn(mockStore, 'dispatch');
+    iconEl.triggerEventHandler('click', void 0);
+    expect(bookmarkSpy).toHaveBeenCalled();
+    expect(bookmarkActionSpy).toHaveBeenCalledWith(addToBookmarks({article: mockArticle}));
+  });
+
+  it('should allow social media sharing', () => {
+    const {length, [length - 1]: shareButtonEl} = fixture.debugElement.queryAll(By.css('button'));
+    const bottomSheet = TestBed.get(MatBottomSheet);
+    const shareOnSocialMediaSpy = spyOn(component, 'shareOnSocialMedia').and.callThrough();
+    const bottomSheetOpenSpy = spyOn(bottomSheet, 'open');
+    shareButtonEl.triggerEventHandler('click', void 0);
+    expect(shareOnSocialMediaSpy).toHaveBeenCalled();
+    expect(bottomSheetOpenSpy).toHaveBeenCalledWith(ShareOnSocialMediaComponent, {data: {article: mockArticle}});
   });
 });

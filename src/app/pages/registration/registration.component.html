@@ -51,7 +51,10 @@
     </mat-card-content>
 
     <mat-card-actions>
-      <button mat-button (click)="submit()">Գրանցվել</button>
+      <div class="actions">
+        <button mat-button (click)="submit()" [disabled]="form.invalid" [matTooltip]="form.valid ? '' : 'Լրացրեք բոլոր դաշտերը'">Գրանցվել</button>
+        <a [routerLink]="['/login']">Մուտք գործել</a>
+      </div>
     </mat-card-actions>
   </mat-card>
 

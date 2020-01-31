@@ -12,6 +12,16 @@ mat-card {
       color: red;
     }
   }
+
+  .actions {
+    max-width: 10%;
+    margin: auto;
+
+    button,
+    a {
+      display: block;
+    }
+  }
 }
 
 @media screen and (max-width: 480px) {

@@ -4,19 +4,29 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ActionCreator } from '@ngrx/store';
 import { mapTo, tap } from 'rxjs/operators';
 
-import { removeFromBookmarksSuccess, noop, addToBookmarks, showLoginWarning, addToBookmarksSuccess } from '../actions';
+import { removeFromBookmarksSuccess, noop, signIn, signInFailure, showLoginWarning, addToBookmarksSuccess } from '../actions';
 
 @Injectable()
 export class MessagesEffects {
 
   addToBookmarksSuccess$ = this.createMessageEffect(
     addToBookmarksSuccess,
-    'Հոդվածը հաջողությամբ պահպանվել է'
+    'Հոդվածը հաջողությամբ պահպանվել է',
   );
 
   removeFromBookmarksSuccess$ = this.createMessageEffect(
     removeFromBookmarksSuccess,
-    'Հոդվածը հաջողությամբ հեռացվել է'
+    'Հոդվածը հաջողությամբ հեռացվել է',
+  );
+
+  signIn$ = this.createMessageEffect(
+    signIn,
+    'Դուք հաջողությամբ մուտք եք գործել',
+  );
+
+  signInFailure$ = this.createMessageEffect(
+    signInFailure,
+    'Չի հաջողվել մուտք եք գործել։ Ստուգեք Ձեր մուտքագրած տվյալները',
   );
 
   showLoginWarning$ = this.createMessageEffect(

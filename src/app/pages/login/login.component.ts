@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
 import { AuthService } from '../../common/services/auth.service';
-import { signIn } from '../../state/actions';
+import { signIn, signInFailure } from '../../state/actions';
 
 @Component({
   selector: 'app-login',
@@ -33,10 +33,10 @@ export class LoginComponent implements OnInit {
       const { token } = await this.authService.signIn(this.form.value);
       localStorage.setItem('token', token);
       this.store.dispatch(signIn());
-      await this.router.navigateByUrl('/admin');
+      await this.router.navigateByUrl('/');
     } catch (error) {
       console.error('Error', error);
-      // TODO: handle error
+      this.store.dispatch(signInFailure());
     }
   }
 

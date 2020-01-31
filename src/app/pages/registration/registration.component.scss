@@ -1,10 +1,22 @@
 .registration-page {
   margin: auto;
-  width: 50%;
+  width: 40%;
   margin-top: 25px;
 
   mat-card {
-    width: 100%;
+    mat-form-field {
+      width: 100%;
+    }
+
+    .actions {
+      max-width: 15%;
+      margin: auto;
+
+      button,
+      a {
+        display: block;
+      }
+    }
   }
 }
 

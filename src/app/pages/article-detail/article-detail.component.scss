@@ -50,6 +50,10 @@
     font-size: 25px;
   }
 
+  :host ::ng-deep a {
+    word-break: break-all !important;
+  }
+
   .back-button-container {
     display: none;
   }
