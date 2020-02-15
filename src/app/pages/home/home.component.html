@@ -1,1 +1,5 @@
-<app-article-list [articles]="articles$ | async" (loadMore)="loadArticles()" [finished]="finished$ | async"></app-article-list>
+<app-article-list *ngIf="(articles$ | async).length > 0"
+                  [articles]="articles$ | async"
+                  (loadMore)="loadArticles()" [finished]="finished$ | async">
+</app-article-list>
+<app-article-skeletons *ngIf="(articles$ | async).length === 0"></app-article-skeletons>

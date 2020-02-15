@@ -22,6 +22,9 @@ import { authReducer, bookmarksReducer, articlesReducer, finishLoadingReducer,
          searchResultsReducer, articlesByTagReducer } from './state/reducers';
 import { BookmarksEffects, ArticlesEffects, AppEffects, MessagesEffects, AuthEffects } from 'src/app/state/effects';
 import { RegistrationComponent } from './pages/registration/registration.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,7 @@ import { RegistrationComponent } from './pages/registration/registration.compone
     RegistrationComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
@@ -57,6 +60,8 @@ import { RegistrationComponent } from './pages/registration/registration.compone
       articlesByTag: articlesByTagReducer,
     }),
     EffectsModule.forRoot([AppEffects, AuthEffects, BookmarksEffects, ArticlesEffects, MessagesEffects]),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    RouterModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },

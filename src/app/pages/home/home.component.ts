@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.title.setTitle('Գիտ․եմ');
+    this.loadArticles();
   }
 
  loadArticles() {

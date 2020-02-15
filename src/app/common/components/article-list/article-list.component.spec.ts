@@ -44,7 +44,7 @@ fdescribe('ArticleListComponent', () => {
     expect(articleEls.length).toBe(0);
     component.articles = [{...mockArticle}, {...mockArticle}];
     fixture.detectChanges();
-    articleEls = fixture.debugElement.queryAll(By.css('app-article-item'));
+    articleEls = fixture.debugElement.query(By.css('app-infinite-scroll')).queryAll(By.css('app-article-item'));
     expect(articleEls.length).toBe(2);
   });
 });

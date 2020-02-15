@@ -17,12 +17,13 @@ import { HeaderComponent } from './components/header/header.component';
 import { FurtherReadingComponent } from './components/further-reading/further-reading.component';
 import { RandomItemPipe } from './pipes/random-item.pipe';
 import { ShareOnSocialMediaComponent } from './components/share-on-social-media/share-on-social-media.component';
+import { ArticleSkeletonsComponent } from './components/article-skeletons/article-skeletons.component';
 
 
 
 @NgModule({
-  declarations: [InfiniteScrollComponent, ArticleItemComponent, TagsComponent, SplitPipe, ArticleListComponent, CapitalizeFirstPipe, HeaderComponent, FurtherReadingComponent, RandomItemPipe, ShareOnSocialMediaComponent],
-  exports: [InfiniteScrollComponent, ArticleListComponent, TagsComponent, SplitPipe, CapitalizeFirstPipe, HeaderComponent, FurtherReadingComponent, RandomItemPipe, ShareOnSocialMediaComponent, MatBottomSheetModule],
+  declarations: [InfiniteScrollComponent, ArticleItemComponent, TagsComponent, SplitPipe, ArticleListComponent, CapitalizeFirstPipe, HeaderComponent, FurtherReadingComponent, RandomItemPipe, ShareOnSocialMediaComponent, ArticleSkeletonsComponent],
+  exports: [InfiniteScrollComponent, ArticleListComponent, TagsComponent, SplitPipe, CapitalizeFirstPipe, HeaderComponent, FurtherReadingComponent, RandomItemPipe, ShareOnSocialMediaComponent, MatBottomSheetModule, ArticleSkeletonsComponent],
   imports: [
     NgCommonModule,
     HttpClientModule,
