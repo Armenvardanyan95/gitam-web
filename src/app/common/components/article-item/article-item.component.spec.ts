@@ -1,5 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatCardModule, MatTooltipModule, MatIconModule, MatBottomSheetModule, MatCardTitle, MatCardSubtitle, MatIcon, MatBottomSheet } from '@angular/material';
+import { MatBottomSheetModule, MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatCardModule, MatCardTitle, MatCardSubtitle } from '@angular/material/card';
+import { MatIconModule, MatIcon } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';

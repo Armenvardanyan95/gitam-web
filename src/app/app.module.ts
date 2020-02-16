@@ -9,8 +9,13 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenInterceptor } from './common/services/token.interceptor';
 import { LoginComponent } from './pages/login/login.component';
-import { MatCardModule, MatButtonModule, MatInputModule, MatIconModule, MatSnackBarModule,
-         MatTooltipModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from './common/common.module';
 import { HomeComponent } from './pages/home/home.component';

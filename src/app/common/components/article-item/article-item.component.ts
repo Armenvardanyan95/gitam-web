@@ -6,7 +6,7 @@ import { allBookmarkIds } from 'src/app/state/selectors';
 import { GlobalState } from 'src/app/state/types';
 import { map, tap } from 'rxjs/operators';
 import { addToBookmarks, removeFromBookmarks } from 'src/app/state/actions';
-import { MatBottomSheet } from '@angular/material';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ShareOnSocialMediaComponent } from '../share-on-social-media/share-on-social-media.component';
 
 @Component({

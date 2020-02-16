@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef, PageEvent, MatDialog } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
 import { filter, pluck, takeUntil, debounceTime, tap } from 'rxjs/operators';
 
 import { ArticleService } from 'src/app/common/services/article.service';
