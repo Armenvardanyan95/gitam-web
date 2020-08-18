@@ -5,10 +5,13 @@
   .list-container {
     display: flex;
     flex: 0 1;
-
+    flex-wrap: wrap;
     .article-item {
       flex: 0 1 32%;
       width: 32%;
+      .mat-card {
+          height: 280px !important;
+      }
     }
   }
 }
