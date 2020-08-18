@@ -51,7 +51,7 @@
     </mat-card-content>
 
     <mat-card-actions>
-      <div class="actions">
+      <div class="actions" [ngClass]="{'dark-mode': (isDarkMode$ | async)}">
         <button mat-button (click)="submit()" [disabled]="form.invalid" [matTooltip]="form.valid ? '' : 'Լրացրեք բոլոր դաշտերը'">Գրանցվել</button>
         <a [routerLink]="['/login']">Մուտք գործել</a>
       </div>

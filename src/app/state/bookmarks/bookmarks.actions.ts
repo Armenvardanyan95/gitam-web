@@ -5,7 +5,7 @@ import { Bookmark } from '../types';
 
 export const resetBookmarks = createAction(
   '[Universal] Reset Bookmarks',
-)
+);
 
 export const loadBookmarks = createAction(
   '[App Root] Load Bookmarks',

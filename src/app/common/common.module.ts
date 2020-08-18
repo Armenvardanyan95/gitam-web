@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TagsComponent } from './components/tags/tags.component';
@@ -24,12 +25,40 @@ import { FurtherReadingComponent } from './components/further-reading/further-re
 import { RandomItemPipe } from './pipes/random-item.pipe';
 import { ShareOnSocialMediaComponent } from './components/share-on-social-media/share-on-social-media.component';
 import { ArticleSkeletonsComponent } from './components/article-skeletons/article-skeletons.component';
-
-
+import { CutPipe } from './pipes/cut.pipe';
+import { AllTagsComponent } from './components/all-tags/all-tags.component';
+import { IncludesPipe } from './pipes/includes.pipe';
 
 @NgModule({
-  declarations: [InfiniteScrollComponent, ArticleItemComponent, TagsComponent, SplitPipe, ArticleListComponent, CapitalizeFirstPipe, HeaderComponent, FurtherReadingComponent, RandomItemPipe, ShareOnSocialMediaComponent, ArticleSkeletonsComponent],
-  exports: [InfiniteScrollComponent, ArticleListComponent, TagsComponent, SplitPipe, CapitalizeFirstPipe, HeaderComponent, FurtherReadingComponent, RandomItemPipe, ShareOnSocialMediaComponent, MatBottomSheetModule, ArticleSkeletonsComponent],
+  declarations: [
+    InfiniteScrollComponent,
+    ArticleItemComponent,
+    TagsComponent,
+    SplitPipe,
+    ArticleListComponent,
+    CapitalizeFirstPipe,
+    HeaderComponent,
+    FurtherReadingComponent,
+    RandomItemPipe,
+    ShareOnSocialMediaComponent,
+    ArticleSkeletonsComponent,
+    CutPipe,
+    AllTagsComponent,
+    IncludesPipe,
+  ],
+  exports: [
+    InfiniteScrollComponent,
+    ArticleListComponent,
+    TagsComponent, SplitPipe,
+    CapitalizeFirstPipe,
+    HeaderComponent,
+    FurtherReadingComponent,
+    RandomItemPipe,
+    ShareOnSocialMediaComponent,
+    MatBottomSheetModule,
+    ArticleSkeletonsComponent,
+    AllTagsComponent,
+  ],
   imports: [
     NgCommonModule,
     HttpClientModule,
@@ -38,6 +67,7 @@ import { ArticleSkeletonsComponent } from './components/article-skeletons/articl
     MatIconModule,
     MatTooltipModule,
     MatMenuModule,
+    MatSlideToggleModule,
     MatBottomSheetModule,
     MatProgressSpinnerModule,
     RouterModule.forChild([]),

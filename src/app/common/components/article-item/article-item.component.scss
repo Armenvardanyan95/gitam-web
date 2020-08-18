@@ -1,8 +1,35 @@
-mat-card {
-  margin-bottom: 10px;
+@import '../../../../styles';
 
+.article-container {
 
-  h3 {
-    font-size: 12px !important;
+  mat-card {
+    margin: 10px;
+    color: white;
+    background-size: cover;
+
+    h3 {
+      font-size: 12px !important;
+    }
+
+    mat-card-title {
+      cursor: pointer;
+      outline: none;
+    }
+
+    mat-card-subtitle {
+      color: #fafafa;
+    }
+
+    mat-card-actions {
+      button {
+        color: white;
+      }
+    }
+
+    .spinning {
+      animation: spin 4s linear infinite;
+    }
   }
 }
+
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }

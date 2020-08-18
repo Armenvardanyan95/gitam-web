@@ -1,3 +1,4 @@
 <ng-container *ngIf="tags">
-  <a *ngFor="let tag of (tags | split)" mat-button [routerLink]="['/tags', tag]">#{{ tag }}</a>
+  <a *ngFor="let tag of (tags | split | cut : limit)" [ngClass]="{'dark-btn': (isDarkMode$ | async)}"
+      mat-button [routerLink]="['/tags', tag]">#{{ tag }}</a>
 </ng-container>

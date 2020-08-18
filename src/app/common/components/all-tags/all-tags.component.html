@@ -1,0 +1,25 @@
+<div class="all-tags-container">
+  <mat-card>
+    <mat-card-header>Թեմաներ</mat-card-header>
+    <mat-card-content>
+      <button *ngIf="(selectedTags$ | async).length > 0"
+              mat-button matTooltip="Հեռացնել Բոլորը" (click)="deselectAllTags()">
+        <mat-icon>clear</mat-icon>
+      </button>
+      <ng-container *ngFor="let tag of allTags$ | async">
+        <button *ngIf="(selectedTags$ | async) | includes : tag; else notSelected"
+                mat-stroked-button matTooltip="Հեռացնել"
+                (click)="deselectTag(tag)" (dblclick)="goToTagDetails(tag)">
+                <mat-icon>done</mat-icon><b>#{{ tag }}</b>
+        </button>
+
+        <ng-template #notSelected>
+          <button mat-button matTooltip="Ավելացնել"
+                  (click)="selectTag(tag)" (dblclick)="goToTagDetails(tag)">
+            #{{ tag }}
+          </button>
+        </ng-template>
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,4 +1,4 @@
-<div class="search-box">
+<div class="search-box" [ngClass]="{'dark-mode': (isDarkMode$ | async)}">
   <input #inp [value]="query" placeholder="Փնտրել"/>
   <span class="icon">
     <mat-icon>search</mat-icon>

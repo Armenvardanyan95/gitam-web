@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import { AuthService } from '../../common/services/auth.service';
-import { signIn, signInFailure } from '../../state/actions';
+
+import { signIn, googleSignIn, facebookSignIn } from '../../state/actions';
+import { GlobalState } from 'src/app/state/types';
+import { SignInCredentialsModel as SignInCredentials } from 'src/app/common/models/sigin.model';
 
 @Component({
   selector: 'app-login',
@@ -13,17 +14,15 @@ import { signIn, signInFailure } from '../../state/actions';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  isDarkMode$ = this.store.select(state => state.preferences.darkMode);
 
-  form = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
+  form = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
   });
 
   constructor(
-    private readonly fb: FormBuilder,
-    private readonly authService: AuthService,
-    private readonly router: Router,
-    private readonly store: Store<unknown>,
+    private readonly store: Store<GlobalState>,
     private readonly title: Title,
   ) { }
 
@@ -31,16 +30,17 @@ export class LoginComponent implements OnInit {
     this.title.setTitle('Մուտք Գործել');
   }
 
-  async signIn() {
-    try {
-      const { token } = await this.authService.signIn(this.form.value);
-      localStorage.setItem('token', token);
-      this.store.dispatch(signIn());
-      await this.router.navigateByUrl('/');
-    } catch (error) {
-      console.error('Error', error);
-      this.store.dispatch(signInFailure());
-    }
+  signIn() {
+    const payload = this.form.value as SignInCredentials;
+    this.store.dispatch(signIn({payload}));
+  }
+
+  signInWithGoogle() {
+    this.store.dispatch(googleSignIn());
+  }
+
+  signInWithFacebook() {
+    this.store.dispatch(facebookSignIn());
   }
 
 }

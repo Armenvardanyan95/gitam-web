@@ -29,12 +29,20 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <div class="actions">
+    <div class="actions" [ngClass]="{'dark-mode': (isDarkMode$ | async)}">
       <button mat-button (click)="signIn()"
         [disabled]="form.invalid" [matTooltip]="form.valid ? '' : 'Լրացրեք բոլոր դաշտերը'">
         Մտնել
       </button>
-    <a [routerLink]="['/register']">Գրանցվել</a>
+      <a [routerLink]="['/register']">Գրանցվել</a>
     </div>
+    <button mat-stroked-button class="social-btn"
+            matTooltip="Մուտք գործել Google-ի միջոցով" (click)="signInWithGoogle()">
+            <img src="../../../assets/icons/google.png" />
+    </button>
+    <!-- <button mat-stroked-button class="social-btn"
+            matTooltip="Մուտք գործել Facebook-ի միջոցով" (click)="signInWithFacebook()">
+            <img src="../../../assets/icons/facebook-logo.svg" />
+    </button> -->
   </mat-card-actions>
 </mat-card>

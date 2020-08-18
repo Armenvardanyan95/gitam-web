@@ -1,10 +1,25 @@
 .article-list {
   margin: auto;
   width: 60%;
+
+  .list-container {
+    display: flex;
+    flex: 0 1;
+
+    .article-item {
+      flex: 0 1 32%;
+      width: 32%;
+    }
+  }
 }
 
 @media screen and (max-width: 480px) {
   .article-list {
     width: 85% !important;
+
+    .article-item {
+      flex: 0 1 100% !important;
+      width: 32% !important;
+    }
   }
 }

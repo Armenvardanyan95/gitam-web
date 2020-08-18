@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 import { Environment } from '../models/environment';
 import { User } from '../models/user';
+import {
+  SignInCredentialsModel as SignInCredentials,
+  SignInWithSocialMediaCredentialsModel as SignInWithSocialMediaCredentials,
+} from '../models/sigin.model';
 
 interface Token {
   token: string;
@@ -26,8 +31,16 @@ export class AuthService {
     return `${this.environment.baseUrl}user/`;
   }
 
-  async signIn(payload: {email: string, password: string}): Promise<Token> {
-    return this.http.post<Token>(this.baseUrl + 'signin', payload).toPromise();
+  signIn(credentials: SignInCredentials): Observable<Token> {
+    return this.http.post<Token>(this.baseUrl + 'signin', credentials);
+  }
+
+  signInWithGoogle(credentials: SignInWithSocialMediaCredentials): Observable<Token> {
+    return this.http.post<Token>(this.baseUrl + 'signin-google', credentials);
+  }
+
+  signInWithFacebook(credentials: SignInWithSocialMediaCredentials): Observable<Token> {
+    return this.http.post<Token>(this.baseUrl + 'signin-facebook', credentials);
   }
 
   async signUp(payload: User): Promise<unknown> {

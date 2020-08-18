@@ -24,3 +24,5 @@ export * from './search/search.actions';
 export * from './articles-by-tag/articles-by-tag.actions';
 
 export * from './loading/loading.actions';
+
+export * from './global/preferences.actions';

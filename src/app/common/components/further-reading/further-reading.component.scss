@@ -1,3 +1,7 @@
+h3 {
+  font-weight: bolder;
+}
+
 .further-reading-container {
   display: flex;
   justify-content: space-between;
@@ -6,5 +10,15 @@
     max-width: 50% !important;
     margin-left: 8px !important;
     height: 100%;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .further-reading-container {
+    flex-wrap: wrap;
+
+    app-article-item {
+      max-width: 100% !important;
+    }
   }
 }

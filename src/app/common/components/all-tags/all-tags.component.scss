@@ -1,0 +1,15 @@
+.all-tags-container {
+  margin: auto;
+  margin-top: 20px;
+  width: 60%;
+
+  button {
+    margin: 2px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .all-tags-container {
+    display: none;
+  }
+}

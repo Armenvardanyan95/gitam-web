@@ -1,10 +1,32 @@
+@import '../../../styles';
+
+:host ::ng-deep a {
+  color: mat-color($theme-accent) !important;
+}
+
+h2 {
+  font-weight: bold;
+}
+
+h4 {
+  font-weight: bolder;
+}
+
 .article-detail-page {
   margin: auto;
   margin-bottom: 10px;
   width: 60%;
 
+  img {
+    width: 100%;
+  }
+
   mat-spinner {
     width: 100%;
+  }
+
+  .spinning {
+    animation: spin 4s linear infinite;
   }
 
   .subtitle {
@@ -12,37 +34,17 @@
     justify-content: space-between;
   }
 
-  a {
-    color: blue !important;
-  }
-
   .actions-tags {
     display: flex;
     justify-content: space-between;
   }
 
-  .back-button-container {
-    height: 100%;
-    width: 15%;
-    background-color: transparent;
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    color: transparent;
-    cursor: pointer;
-
-    &:hover {
-      background-color: gray;
-      opacity: 0.25;
-      color: black;
-
-      span {
-        opacity: 1;
-      }
-    }
+  :host ::ng-deep img {
+    width: 100% !important;
   }
 }
+
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 @media screen and (max-width: 480px) {
   .article-detail-page {
@@ -50,11 +52,32 @@
     font-size: 25px;
   }
 
+  .article-content {
+    line-height: 115%;
+  }
+
   :host ::ng-deep a {
     word-break: break-all !important;
+    // color: mat-color($theme-accent) !important;
+  }
+
+  // .dark-mode {
+  //   :host ::ng-deep a {
+  //     color: $alternate-button-color !important;
+  //   }
+  // }
+
+  :host ::ng-deep p {
+    margin-bottom: 25px !important;
   }
 
   .back-button-container {
     display: none;
+  }
+}
+
+:host ::ng-deep .dark-mode {
+  a {
+    color: $alternate-button-color !important;
   }
 }

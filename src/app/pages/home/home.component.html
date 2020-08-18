@@ -1,3 +1,4 @@
+<app-all-tags></app-all-tags>
 <app-article-list *ngIf="(articles$ | async).length > 0"
                   [articles]="articles$ | async"
                   (loadMore)="loadArticles()" [finished]="finished$ | async">

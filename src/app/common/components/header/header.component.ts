@@ -1,12 +1,12 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ENTER } from '@angular/cdk/keycodes';
 import { Store } from '@ngrx/store';
-import { fromEvent, Subject, Observable, merge } from 'rxjs';
-import { takeUntil, map, mapTo } from 'rxjs/operators';
+import { of, fromEvent, Subject, Observable, merge } from 'rxjs';
+import { takeUntil, map, mapTo, startWith } from 'rxjs/operators';
 
 import { GlobalState } from 'src/app/state/types';
-import { signOut } from 'src/app/state/actions';
+import { signOut, toggleDarkMode } from 'src/app/state/actions';
 
 @Component({
   selector: 'app-header',
@@ -15,8 +15,9 @@ import { signOut } from 'src/app/state/actions';
 })
 export class HeaderComponent implements AfterViewInit, OnDestroy {
   isAuth$ = this.store.select(state => state.isAuth);
+  isDarkMode$ = this.store.select(state => state.preferences.darkMode);
   search$ = new Subject<void>();
-  searchOpen$: Observable<boolean>;
+  searchOpen$: Observable<boolean> = of(false);
   destroy$ = new Subject<void>();
 
   constructor(
@@ -30,11 +31,13 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
       this.search$.pipe(mapTo(true)),
     ).pipe(
       map(event => (event instanceof Event) ? false : event),
+      startWith(false),
       takeUntil(this.destroy$),
     );
   }
 
   search(event: KeyboardEvent, query: string) {
+    // tslint:disable-next-line: deprecation
     if (event.keyCode === ENTER) {
       this.router.navigateByUrl(`/search?query=${query}`);
     }
@@ -42,6 +45,11 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
 
   signOut() {
     this.store.dispatch(signOut());
+  }
+
+  toggleDarkMode(event: MouseEvent) {
+    event.stopPropagation();
+    this.store.dispatch(toggleDarkMode());
   }
 
   ngOnDestroy() {

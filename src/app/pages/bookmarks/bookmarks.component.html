@@ -1,4 +1,5 @@
 <div *ngIf="(bookmarks$ | async).length === 0" class="centered">
   Դուք դեռ չունեք պահպանված հոդվածներ
 </div>
+<h2>Պահպանված հոդվածներ</h2>
 <app-article-list [articles]="bookmarks$ | async" [finished]="true"></app-article-list>

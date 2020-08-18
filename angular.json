@@ -167,7 +167,7 @@
           "builder": "@angular-devkit/build-angular:server",
           "options": {
             "outputPath": "dist/server",
-            "main": "src/main.server.ts",
+            "main": "server.ts",
             "tsConfig": "tsconfig.server.json"
           },
           "configurations": {
@@ -195,6 +195,32 @@
               "browserTarget": "gitam-web:build:production",
               "serverTarget": "gitam-web:server:production"
             }
+          }
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "gitam-web:build",
+            "serverTarget": "gitam-web:server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "gitam-web:build:production",
+              "serverTarget": "gitam-web:server:production"
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "gitam-web:build:production",
+            "serverTarget": "gitam-web:server:production",
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {}
           }
         }
       }

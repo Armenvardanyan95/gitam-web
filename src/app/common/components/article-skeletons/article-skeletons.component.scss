@@ -1,3 +1,18 @@
+@import '../../../../styles';
+
+.skeletons-list {
+  width: 60%;
+  margin: auto;
+  display: flex;
+  flex: 0 1;
+  flex-wrap: wrap;
+
+  .skeleton-item {
+    flex: 0 1 32%;
+    width: 32%;
+  }
+}
+
 .img-skeleton {
   width: 100%;
   height: 250px;
@@ -16,18 +31,25 @@
 }
 
 mat-card {
-  margin: auto;
-  width: 60%;
-  margin-bottom: 10px;
+  margin: 10px;
 }
 
 @media screen and (max-width: 480px) {
   .mat-card {
     width: 85% !important;
   }
+
+  .skeleton-list {
+    width: 85% !important;
+
+    .skeleton-item {
+      flex: 0 1 100% !important;
+      width: 32% !important;
+    }
+  }
 }
 
 @keyframes loader {
-  from {background-color: white; width: 0;}
-  to {background-color: #B9B9B9; width: 100%}
+  from {background-color: mat-color($theme-primary); width: 0;}
+  to {background-color: mat-color($theme-accent); width: 100%}
 }

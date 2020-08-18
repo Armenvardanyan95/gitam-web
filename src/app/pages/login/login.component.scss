@@ -1,3 +1,5 @@
+@import '../../../styles';
+
 mat-card {
   margin: auto;
   margin-top: 50px;
@@ -13,6 +15,18 @@ mat-card {
     }
   }
 
+  .social-btn {
+    // width: 49%;
+    width: 100%;
+    padding: 15px;
+    margin: 3px;
+
+    img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
   .actions {
     max-width: 10%;
     margin: auto;
@@ -20,6 +34,14 @@ mat-card {
     button,
     a {
       display: block;
+      color: mat-color($theme-accent);
+    }
+  }
+
+  .dark-mode {
+    button,
+    a {
+      color: $alternate-button-color !important;
     }
   }
 }

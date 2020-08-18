@@ -1,10 +1,11 @@
+@import '../../../../styles';
+
 nav {
   display: flex;
   height: 60px;
-  border-bottom: thick solid green;
+  border-bottom: thick solid mat-color($theme-accent);
   margin-bottom: 5px;
-
-
+  // background-color: mat-color($theme-primary);
 
   .container {
     margin: auto;
@@ -13,8 +14,18 @@ nav {
     display: flex;
     justify-content: space-between;
 
+    .logo {
+      display: flex;
+      align-items: center;
+      img {
+        width: 42px;
+        height: 42px;
+      }
+    }
+
     .left-container {
       display: flex;
+      align-items: center;
     }
 
     a {
@@ -25,6 +36,11 @@ nav {
 
     .brand {
       margin-left: 10px;
+      color: mat-color($theme-accent) !important;
+    }
+
+    .brand-dark {
+      color: mat-color($theme-primary) !important;
     }
 
     .login-btn {
@@ -38,6 +54,7 @@ nav {
         border: none;
         outline: none;
         transition: width 2s;
+        background-color: #fafafa;
       }
 
       button {
@@ -48,6 +65,7 @@ nav {
 
       .closed {
         width: 0;
+        padding: 0;
       }
 
       .open {
@@ -76,5 +94,29 @@ nav {
   .login-btn {
     align-self: center;
     max-height: 70%;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  nav {
+    // position: fixed !important;
+    // opacity: 1 !important;
+    // top: 0 !important;
+    // width: 100% !important;
+    // z-index: 10000;
+
+    .container {
+      .left-container {
+        display: inline-flex;
+
+        a {
+          align-self: baseline !important;
+        }
+      }
+
+      .bookmarks-invisible-mobile {
+        display: none !important;
+      }
+    }
   }
 }

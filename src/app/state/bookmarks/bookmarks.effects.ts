@@ -3,9 +3,10 @@ import { Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { mergeMap, switchMap, toArray, map, withLatestFrom, tap, filter } from 'rxjs/operators';
+import { checkLatestFrom } from 'sareer';
 
 import { loadBookmarks, loadBookmarksSuccess, addToBookmarks, addToBookmarksSuccess,
-         removeFromBookmarks, removeFromBookmarksSuccess, showLoginWarning } from '../actions';
+         removeFromBookmarks, removeFromBookmarksSuccess, showLoginWarning, changeBookmarkLoadingStatus } from '../actions';
 import { BookmarkService } from 'src/app/common/services/bookmark.service';
 import { allBookmarks } from '../selectors';
 import { GlobalState } from '../types';
@@ -58,6 +59,28 @@ export class BookmarksEffects {
     mergeMap(({articleId: id, bookmarkId}) => this.bookmarkService.deleteBookmark(bookmarkId).pipe(
       map(() => removeFromBookmarksSuccess({id})),
     ))
+  ));
+
+  addToBookmarksLoaderOn$ = createEffect(() => this.actions$.pipe(
+    ofType(addToBookmarks),
+    checkLatestFrom(this.store.select(state => state.isAuth)),
+    map(({article}) => changeBookmarkLoadingStatus({payload: {status: true, id: article.id}}))
+  ));
+
+  addToBookmarksLoaderOff$ = createEffect(() => this.actions$.pipe(
+    ofType(addToBookmarksSuccess),
+    map(({article}) => changeBookmarkLoadingStatus({payload: {status: false, id: article.id}}))
+  ));
+
+  removeFromBookmarksLoaderOn$ = createEffect(() => this.actions$.pipe(
+    ofType(removeFromBookmarks),
+    checkLatestFrom(this.store.select(state => state.isAuth)),
+    map(({id}) => changeBookmarkLoadingStatus({payload: {status: true, id}}))
+  ));
+
+  removeFromBookmarksLoaderOff$ = createEffect(() => this.actions$.pipe(
+    ofType(removeFromBookmarksSuccess),
+    map(({id}) => changeBookmarkLoadingStatus({payload: {status: false, id}}))
   ));
 
   constructor(

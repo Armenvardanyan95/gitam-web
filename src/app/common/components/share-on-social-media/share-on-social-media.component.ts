@@ -1,7 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 
 import { ArticleModel } from '../../models/article';
+import { Subject } from 'rxjs';
+import { GlobalState } from 'src/app/state/types';
 
 enum SocialMedia {
   Twitter,
@@ -17,10 +20,14 @@ enum SocialMedia {
 })
 export class ShareOnSocialMediaComponent implements OnInit {
 
+  isDarkMode$ = this.store.select(state => state.preferences.darkMode);
   platforms = SocialMedia;
+  dismissed = new Subject<void>();
+  copied = new Subject<void>();
 
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public readonly data: {article: ArticleModel},
+    private readonly store: Store<GlobalState>,
   ) { }
 
   ngOnInit() {
@@ -28,7 +35,9 @@ export class ShareOnSocialMediaComponent implements OnInit {
 
   shareOn(platform: SocialMedia) {
     let url;
+    /* tslint:disable:max-line-length */
     const articleUrl = `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}/articles/${this.data.article.id}`;
+    /* tslint:enable:variable-name */
     switch (platform) {
       case SocialMedia.Twitter: {
         url = `https://twitter.com/intent/tweet?text=${ this.data.article.title }:%0A ${ articleUrl }`;
@@ -57,6 +66,10 @@ export class ShareOnSocialMediaComponent implements OnInit {
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
+    this.dismissed.next();
+    this.dismissed.complete();
+    this.copied.next();
+    this.copied.complete();
   }
 
 }

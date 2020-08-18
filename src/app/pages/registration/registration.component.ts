@@ -5,6 +5,8 @@ import { Title } from '@angular/platform-browser';
 
 import { AuthService } from 'src/app/common/services/auth.service';
 import { User } from 'src/app/common/models/user';
+import { Store } from '@ngrx/store';
+import { GlobalState } from 'src/app/state/types';
 
 @Component({
   selector: 'app-registration',
@@ -12,6 +14,7 @@ import { User } from 'src/app/common/models/user';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
+  isDarkMode$ = this.store.select(state => state.preferences.darkMode);
   form = this.formBuilder.group({
     fullName: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
@@ -21,6 +24,7 @@ export class RegistrationComponent implements OnInit {
   loading = false;
 
   constructor(
+    private readonly store: Store<GlobalState>,
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
     private readonly authService: AuthService,

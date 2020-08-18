@@ -1,35 +1,33 @@
-<div class="article-detail-page">
-  <mat-spinner *ngIf="loading"></mat-spinner>
+<div class="article-detail-page" #pageContainer [ngClass]="{'dark-mode': (isDarkMode$ | async)}">
+  <mat-spinner *ngIf="loading$ | async" color="accent" [ngStyle]="{margin: 'auto'}"></mat-spinner>
 
-  <ng-container *ngIf="article">
-    <h2>{{ article.title }}</h2>
-    <div class="subtitle">
-      <h5>{{ article.createdAt | date }}</h5>
-      <h5>{{ author.fullName }}</h5>
-    </div>
-    <div class="article-content" [innerHTML]="article.text"></div>
-    <div class="actions-tags">
-      <app-tags [tags]="article.tags"></app-tags>
-      <div class="actions">
-        <button mat-button
-                [matTooltip]="(isInBookmarks$ | async) ? 'Հեռացնել պահպանած հոդվածներից' : 'Պահպանել հոդվածը'">
-          <mat-icon *ngIf="!(isInBookmarks$ | async)" (click)="addToBookmarks()">bookmark_border</mat-icon>
-          <mat-icon *ngIf="isInBookmarks$ | async" (click)="removeFromBookmarks()">bookmark</mat-icon>
-        </button>
-        <button mat-button (click)="shareOnSocialMedia()" matTooltip="Կիսվել">
-          <mat-icon>share</mat-icon>
-        </button>
+  <ng-container *ngIf="article$ | async as article">
+    <ng-container *ngIf="(loading$ | async) === false">
+      <h2>{{ article.title }}</h2>
+      <div class="subtitle">
+        <h4>{{ article.createdAt | date : 'longDate' }}</h4>
+        <h4>{{ (author$ | async).fullName }}</h4>
       </div>
-    </div>
-    <app-further-reading [tag]="article.tags | split | randomItem" [currentArticleId]="article.id"></app-further-reading>
+      <div *ngIf="article.image">
+        <img [src]="article.image" />
+      </div>
+      <div class="article-content" [innerHTML]="article.text"></div>
+      <div class="actions-tags">
+        <app-tags [tags]="article.tags"></app-tags>
+        <div class="actions">
+          <button mat-button [color]="(isDarkMode$ | async ) ? 'primary' : 'accent'"
+                  [ngClass]="{spinning: (bookmarkStatusChanging | async)}"
+                  [matTooltip]="(isInBookmarks$ | async) ? 'Հեռացնել պահպանած հոդվածներից' : 'Պահպանել հոդվածը'">
+            <mat-icon *ngIf="(isInBookmarks$ | async) === false" (click)="addToBookmarks(article.id)">bookmark_border</mat-icon>
+            <mat-icon *ngIf="isInBookmarks$ | async" (click)="removeFromBookmarks(article.id)">bookmark</mat-icon>
+          </button>
+          <button mat-button [color]="(isDarkMode$ | async ) ? 'primary' : 'accent'"
+                 (click)="shareOnSocialMedia(article)" matTooltip="Կիսվել">
+            <mat-icon>share</mat-icon>
+          </button>
+        </div>
+      </div>
+      <app-further-reading [tag]="article.tags | split | randomItem" [currentArticleId]="article.id"></app-further-reading>
+    </ng-container>
   </ng-container>
-
-  <ng-container *ngIf="errorMessage"></ng-container>
-
-  <div class="back-button-container" (click)="back()">
-    <button mat-button>
-      <mat-icon>arrow_left</mat-icon>
-      <span>Նախորդ էջ</span>
-    </button>
-  </div>
 </div>

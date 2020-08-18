@@ -1,3 +1,5 @@
+@import '../../../styles.scss';
+
 .registration-page {
   margin: auto;
   width: 40%;
@@ -9,12 +11,20 @@
     }
 
     .actions {
-      max-width: 15%;
+      max-width: 17%;
       margin: auto;
 
       button,
       a {
         display: block;
+        color: mat-color($theme-accent);
+      }
+    }
+
+    .dark-mode {
+      button,
+      a {
+        color: $alternate-button-color !important;
       }
     }
   }

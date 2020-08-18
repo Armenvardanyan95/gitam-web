@@ -14,8 +14,6 @@ import { GlobalState } from 'src/app/state/types';
 })
 export class BookmarksComponent implements OnInit {
   bookmarks$ = this.store.select(allBookmarks);
-  // errorMessage: string;
-  // loading = false;
 
   constructor(
     private readonly store: Store<GlobalState>,

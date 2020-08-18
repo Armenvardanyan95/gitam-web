@@ -25,7 +25,7 @@ export class FurtherReadingComponent implements OnInit, OnChanges {
   }
 
   async loadArticles() {
-    const list = await this.articleService.getFeed(1, {size: 2, tag: this.tag}).toPromise();
+    const list = await this.articleService.getFeed(1, {size: 2, tags: [this.tag]}).toPromise();
     this.articles = list.data.filter(article => this.currentArticleId !== article.id);
   }
 

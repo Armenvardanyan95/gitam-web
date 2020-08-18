@@ -127,7 +127,7 @@ export class AddEditArticleComponent implements OnInit {
 
   private async loadSingleArticle(id: number) {
     try {
-      this.editedArticle = await this.articleService.getArticle(id);
+      this.editedArticle = await this.articleService.getArticle(id).toPromise();
       this.form.get('title').setValue(this.editedArticle.title);
       this.form.get('text').setValue(this.editedArticle.text);
       this.form.get('tags').setValue(this.editedArticle.tags.split(','));

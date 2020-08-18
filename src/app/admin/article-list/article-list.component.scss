@@ -1,3 +1,5 @@
+@import '../../../styles.scss';
+
 .article-list-page {
   margin: auto;
   margin-top: 20px;
@@ -8,7 +10,7 @@
 
     a {
       text-decoration: none;
-      color: purple;
+      color: $alternate-button-color;
 
       &:hover {
         text-decoration: underline;

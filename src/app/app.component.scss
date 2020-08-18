@@ -1,5 +1,27 @@
+@import '../styles.scss';
+
 .scroll-up-btn {
   position: fixed;
   right: 5%;
   bottom: 5%;
 }
+
+button {
+  background-color: mat-color($theme-accent);
+}
+
+.loader-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 5px;
+  width: 100%;
+}
+
+
+
+// @media only screen and (max-width: 480px) {
+//   main {
+//     margin-top: 70px !important;
+//   }
+// }

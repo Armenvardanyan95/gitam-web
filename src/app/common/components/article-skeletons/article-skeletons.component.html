@@ -1,17 +1,21 @@
-<mat-card *ngFor="let n of range">
-  <mat-card-header>
-      <mat-card-title><span class="text-skeleton">Loading</span></mat-card-title>
-      <mat-card-subtitle><span class="text-skeleton">Loading</span></mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <div class="img-skeleton"></div>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>
-      <mat-icon>bookmark_border</mat-icon>
-    </button>
-    <button mat-button matTooltip="Կիսվել">
-      <mat-icon>share</mat-icon>
-    </button>
-  </mat-card-actions>
-</mat-card>
+<div class="skeletons-list">
+  <div *ngFor="let n of range" class="skeleton-item">
+    <mat-card>
+      <mat-card-header>
+          <mat-card-title><span class="text-skeleton">Loading</span></mat-card-title>
+          <mat-card-subtitle><span class="text-skeleton">Loading</span></mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="img-skeleton"></div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>
+          <mat-icon>bookmark_border</mat-icon>
+        </button>
+        <button mat-button matTooltip="Կիսվել">
+          <mat-icon>share</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

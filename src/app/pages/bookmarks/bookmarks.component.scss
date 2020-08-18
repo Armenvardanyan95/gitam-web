@@ -1,0 +1,12 @@
+h2 {
+  font-weight: bolder;
+  margin: auto;
+  width: 60%;
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 480px) {
+  h2 {
+    width: 80% !important;
+  }
+}

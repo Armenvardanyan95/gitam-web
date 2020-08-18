@@ -22,7 +22,7 @@ import { ShareOnSocialMediaComponent } from '../share-on-social-media/share-on-s
 describe('ArticleItemComponent', () => {
   let component: ArticleItemComponent;
   let fixture: ComponentFixture<ArticleItemComponent>;
-  let datePipe = new DatePipe('en');
+  const datePipe = new DatePipe('en');
   let mockStore: MockStore<GlobalState>;
   let mockBookmarksSelector: MemoizedSelector<number[] | string [], number[] | string []>;
   const fixedDate = new Date().toISOString();
@@ -42,7 +42,7 @@ describe('ArticleItemComponent', () => {
     fixture = TestBed.createComponent(ArticleItemComponent);
     component = fixture.componentInstance;
     component.article = mockArticle;
-    mockStore = TestBed.get(Store);
+    mockStore = TestBed.inject(Store);
     mockBookmarksSelector = mockStore.overrideSelector(allBookmarkIds, []);
     fixture.detectChanges();
   });
@@ -76,7 +76,7 @@ describe('ArticleItemComponent', () => {
 
   it('should allow to bookmark and unbookmark the article', () => {
     const bookmarkButtonEl = fixture.debugElement.query(By.css('button'));
-    let iconEl = bookmarkButtonEl.query(By.directive(MatIcon));
+    const iconEl = bookmarkButtonEl.query(By.directive(MatIcon));
     const bookmarkSpy = spyOn(component, 'addToBookmarks').and.callThrough();
     const bookmarkActionSpy = spyOn(mockStore, 'dispatch');
     iconEl.triggerEventHandler('click', void 0);
@@ -86,7 +86,7 @@ describe('ArticleItemComponent', () => {
 
   it('should allow social media sharing', () => {
     const {length, [length - 1]: shareButtonEl} = fixture.debugElement.queryAll(By.css('button'));
-    const bottomSheet = TestBed.get(MatBottomSheet);
+    const bottomSheet = TestBed.inject(MatBottomSheet);
     const shareOnSocialMediaSpy = spyOn(component, 'shareOnSocialMedia').and.callThrough();
     const bottomSheetOpenSpy = spyOn(bottomSheet, 'open');
     shareButtonEl.triggerEventHandler('click', void 0);

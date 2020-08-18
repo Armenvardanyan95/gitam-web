@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { Title } from '@angular/platform-browser';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
+import { Location } from '@angular/common';
+import { Title, DomSanitizer } from '@angular/platform-browser';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { Subject } from 'rxjs';
+import { map, pluck, withLatestFrom, startWith, takeUntil, filter, takeWhile } from 'rxjs/operators';
 
-import { ArticleService } from 'src/app/common/services/article.service';
-import { ArticleModel } from 'src/app/common/models/article';
-import { allBookmarkIds } from 'src/app/state/selectors';
+import { ArticleModel as Article } from 'src/app/common/models/article';
+import { allBookmarkIds, loadingBookmarks } from 'src/app/state/selectors';
 import { addToBookmarks, removeFromBookmarks } from 'src/app/state/actions';
 import { ShareOnSocialMediaComponent } from 'src/app/common/components/share-on-social-media/share-on-social-media.component';
 import { User } from 'src/app/common/models/user';
@@ -19,59 +18,92 @@ import { GlobalState } from 'src/app/state/types';
   templateUrl: './article-detail.component.html',
   styleUrls: ['./article-detail.component.scss']
 })
-export class ArticleDetailComponent implements OnInit {
-  isInBookmarks$ = this.store.select(allBookmarkIds).pipe(
-    map((ids: number[]) => ids.includes(this.article.id)),
+export class ArticleDetailComponent implements OnInit, AfterViewChecked {
+  @ViewChild('pageContainer') pageContainer: ElementRef<HTMLDivElement>;
+  article$ = this.store.select(state => this.sanitize(state.articles.articleDetails));
+  author$ = this.article$.pipe(
+    startWith({} as Article),
+    map(article => article.author as User),
   );
-  article: ArticleModel;
-  errorMessage: string;
-  loading = false;
-
-  get author() {
-    return (this.article || {} as ArticleModel).author as User;
-  }
+  isInBookmarks$ = this.store.select(allBookmarkIds).pipe(
+    withLatestFrom(this.article$.pipe(pluck('id'))),
+    map(([ids, id]: [number[], number]) => ids.includes(id)),
+  );
+  bookmarkStatusChanging = this.store.select(loadingBookmarks).pipe(
+    withLatestFrom(this.article$.pipe(pluck('id'))),
+    map(([ids, id]) => ids.has(id)),
+  );
+  isDarkMode$ = this.store.select(state => state.preferences.darkMode);
+  loading$ = this.store.select(state => state.articles.loading.articleDetails);
+  viewChecked$ = new Subject<void>();
+  destroy$ = new Subject<void>();
 
   constructor(
-    private readonly route: ActivatedRoute,
     private readonly location: Location,
-    private readonly articleService: ArticleService,
     private readonly store: Store<GlobalState>,
     private readonly bottomSheet: MatBottomSheet,
+    private readonly sanitizer: DomSanitizer,
     private readonly title: Title,
   ) { }
 
   ngOnInit() {
-    this.loadArticle();
+    this.article$
+      .pipe(
+        filter(article => article !== null),
+        map(article => article.title),
+        takeUntil(this.destroy$),
+      )
+      .subscribe(title => this.title.setTitle(title));
+
+    this.viewChecked$.pipe(
+      filter(() => !!this.pageContainer.nativeElement),
+      map(() => ({
+        images: Array.from(
+          this.pageContainer.nativeElement.querySelectorAll('img'),
+        ),
+        iframes: Array.from(
+          this.pageContainer.nativeElement.querySelectorAll('iframe'),
+        ),
+      })),
+    ).subscribe(({images, iframes}) => {
+      images.slice(1, images.length).forEach(image => image.style.width = '100%');
+      iframes.forEach(iframe => iframe.style.width = '100%');
+    });
   }
 
-  addToBookmarks() {
-    this.store.dispatch(addToBookmarks({article: this.article}));
+  ngAfterViewChecked() {
+    this.viewChecked$.next();
   }
 
-  removeFromBookmarks() {
-    this.store.dispatch(removeFromBookmarks({id: this.article.id}));
+  addToBookmarks(article: Article) {
+    this.store.dispatch(addToBookmarks({article}));
   }
 
-  shareOnSocialMedia() {
-    this.bottomSheet.open(ShareOnSocialMediaComponent, {data: {article: this.article}});
+  removeFromBookmarks(id: number) {
+    this.store.dispatch(removeFromBookmarks({id}));
+  }
+
+  shareOnSocialMedia(article: Article) {
+    this.bottomSheet.open(ShareOnSocialMediaComponent, {data: {article}});
   }
 
   back() {
     this.location.back();
   }
 
-  async loadArticle() {
-    this.loading = true;
-    const id = +this.route.snapshot.paramMap.get('id');
-    try {
-      this.article = await this.articleService.getArticle(id);
-      this.title.setTitle(this.article.title);
-    } catch (error) {
-      this.errorMessage = `Տեղի է ունեցել սխալ, խնդրում ենք փորձել մի փոքր ուշ`;
-      console.error(error);
-    } finally {
-      this.loading = false;
-    }
+  private sanitize(article: Article): Article {
+    return article ? ({
+      ...article,
+      text: this.sanitizer.bypassSecurityTrustHtml(
+        this.desanitizeForIframes(article.text)
+      ) as string,
+    }) : null;
+  }
+
+  private desanitizeForIframes(text: string): string {
+    return text
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>');
   }
 
 }

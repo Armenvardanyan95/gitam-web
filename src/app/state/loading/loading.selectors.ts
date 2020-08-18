@@ -18,3 +18,10 @@ export const finishedLoadingSearch = createSelector(
   finishedSelector,
   state => state.finishedLoadingSearch,
 );
+
+export const loadingBookmarks = createSelector(
+  finishedSelector,
+  state => {
+    return state.loadingBookmarks;
+  },
+);

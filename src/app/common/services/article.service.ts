@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { ArticleModel } from '../models/article';
 import { Environment } from '../models/environment';
 import { List } from '../models/list';
 import { ArticleSaveModel } from '../models/article.save';
-import { InterceptorSkipHeader } from '../http/headers';
 
 export interface FeedOptions {
   size: number;
-  tag?: string;
+  tags?: string[];
+}
+
+interface SearchParams {
+  $or: {
+    tags: {
+      $cont: string
+    };
+  }[];
 }
 
 @Injectable()
@@ -59,8 +66,17 @@ export class ArticleService {
                       .append('per_page', (options.size || 10).toString())
                       .append('sort', 'createdAt,DESC')
                       .append('page', page.toString());
-    if (options.tag && options.tag !== '') {
-      params = params.append('filter', `tags||cont||${options.tag}`);
+    if (options.tags && options.tags.length > 0) {
+      const search: SearchParams = {
+        $or: options.tags.map(tag => ({tags: {$cont: tag}})),
+      };
+      params = params.append('s', JSON.stringify(search));
+      // searchObject.
+      // params = params.se('filter', `tags||cont||${options.tags[0]}`);
+
+      // options.tags.slice(1, options.tags.length).forEach(tag => {
+      //   params = params.append('or', `tags||cont||${tag}`);
+      // });
     }
 
     return this.http.get<List<ArticleModel>>(this.baseUrl, {params});
@@ -70,9 +86,13 @@ export class ArticleService {
     return this.http.delete<void>(this.baseUrl + id.toString()).toPromise();
   }
 
-  async getArticle(id: number): Promise<ArticleModel> {
+  getArticle(id: number): Observable<ArticleModel> {
     const params = new HttpParams().append('join', 'author||fullName');
-    return this.http.get<ArticleModel>(this.baseUrl + id.toString(), {params}).toPromise();
+    return this.http.get<ArticleModel>(this.baseUrl + id.toString(), {params});
+  }
+
+  getAllTags(): Observable<string[]> {
+    return this.http.get<string[]>(this.baseUrl + 'tags');
   }
 
   async uploadImage(file: File, id): Promise<void> {
@@ -94,7 +114,7 @@ export class ArticleService {
       const xhr = new XMLHttpRequest();
       xhr.open('PUT', signedRequest);
       xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4){
+        if (xhr.readyState === 4) {
           if (xhr.status === 200) {
             resolve();
           } else {

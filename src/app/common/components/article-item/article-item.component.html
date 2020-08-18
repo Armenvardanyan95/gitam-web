@@ -1,20 +1,27 @@
-<mat-card>
+<div class="article-container">
+  <mat-card [ngStyle]="{
+    'background-image': 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + article.image + ')'}">
     <mat-card-header>
         <mat-card-title [routerLink]="['/articles', article.id]">{{ article.title }}</mat-card-title>
         <mat-card-subtitle>{{ article.createdAt | date }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <img mat-card-image *ngIf="article.image" [src]="article.image"/>
-      <app-tags [tags]="article.tags"></app-tags>
+      <!-- <img mat-card-image *ngIf="article.image" [src]="article.image" [routerLink]="['/articles', article.id]"/> -->
+      <app-tags [tags]="article.tags" limit="2"></app-tags>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button
+              [ngClass]="{spinning: (bookmarkStatusChanging | async)}"
               [matTooltip]="(isInBookmarks$ | async) ? 'Հեռացնել պահպանած հոդվածներից' : 'Պահպանել հոդվածը'">
-        <mat-icon *ngIf="!(isInBookmarks$ | async)" (click)="addToBookmarks()">bookmark_border</mat-icon>
+        <mat-icon *ngIf="(isInBookmarks$ | async) === false" (click)="addToBookmarks()">bookmark_border</mat-icon>
         <mat-icon *ngIf="isInBookmarks$ | async" (click)="removeFromBookmarks()">bookmark</mat-icon>
       </button>
-      <button mat-button (click)="shareOnSocialMedia()" matTooltip="Կիսվել">
+      <button mat-button
+              (click)="shareOnSocialMedia()" matTooltip="Կիսվել">
         <mat-icon>share</mat-icon>
       </button>
     </mat-card-actions>
-</mat-card>
+  </mat-card>
+</div>
+
+

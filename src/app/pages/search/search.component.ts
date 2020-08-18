@@ -19,6 +19,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   searchResults$ = this.store.select(searchResults);
   finished$ = this.store.select(finishLoadingSearch);
+  isDarkMode$ = this.store.select(state => state.preferences.darkMode);
   page = 1;
   query: string;
   destroy$ = new Subject<void>();

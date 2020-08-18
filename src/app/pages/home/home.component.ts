@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
 
   articles$ = this.store.select(allArticles);
   finished$ = this.store.select(finishedLoadingFeed);
-  page = 1;
 
   constructor(
     private readonly store: Store<GlobalState>,
@@ -28,7 +27,7 @@ export class HomeComponent implements OnInit {
   }
 
  loadArticles() {
-   this.store.dispatch(loadArticles({page: this.page++, feedOptions: {size: 10}}));
+   this.store.dispatch(loadArticles({feedOptions: {size: 10}}));
   }
 
 }
