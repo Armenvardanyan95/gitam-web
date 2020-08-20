@@ -27,7 +27,7 @@
           </button>
         </div>
       </div>
-      <app-further-reading [tag]="article.tags | split | randomItem" [currentArticleId]="article.id"></app-further-reading>
+      <app-further-reading [tags]="article.tags | split" [currentArticleId]="article.id"></app-further-reading>
     </ng-container>
   </ng-container>
 </div>

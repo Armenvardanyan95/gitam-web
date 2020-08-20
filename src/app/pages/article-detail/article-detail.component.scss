@@ -1,6 +1,6 @@
 @import '../../../styles';
 
-:host ::ng-deep a {
+:host ::ng-deep a:not([mat-card-title], .single-tag) {
   color: mat-color($theme-accent) !important;
 }
 
@@ -16,6 +16,10 @@ h4 {
   margin: auto;
   margin-bottom: 10px;
   width: 60%;
+
+  .article-content {
+    font-size: 18px;
+  }
 
   img {
     width: 100%;

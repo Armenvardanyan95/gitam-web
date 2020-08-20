@@ -9,7 +9,7 @@ import { ArticleModel } from '../../models/article';
   styleUrls: ['./further-reading.component.scss']
 })
 export class FurtherReadingComponent implements OnInit, OnChanges {
-  @Input() tag: string;
+  @Input() tags: string[];
   @Input() currentArticleId: number;
   articles: ArticleModel[] = [];
 
@@ -25,8 +25,11 @@ export class FurtherReadingComponent implements OnInit, OnChanges {
   }
 
   async loadArticles() {
-    const list = await this.articleService.getFeed(1, {size: 2, tags: [this.tag]}).toPromise();
-    this.articles = list.data.filter(article => this.currentArticleId !== article.id);
+    const list = await this.articleService.getFeed(1, {size: 5, tags: this.tags}).toPromise();
+    this.articles = list.data
+      .filter(article => this.currentArticleId !== article.id)
+      .sort(() => Math.random() > 0.5 ? 1 : -1)
+      .slice(0, 2);
   }
 
 }

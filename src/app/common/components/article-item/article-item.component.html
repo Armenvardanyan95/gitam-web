@@ -2,7 +2,7 @@
   <mat-card [ngStyle]="{
     'background-image': 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + article.image + ')'}">
     <mat-card-header>
-        <mat-card-title [routerLink]="['/articles', article.id]">{{ article.title }}</mat-card-title>
+        <a mat-card-title [routerLink]="['/articles', article.id]">{{ article.title }}</a>
         <mat-card-subtitle>{{ article.createdAt | date }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>

@@ -11,9 +11,10 @@
       font-size: 12px !important;
     }
 
-    mat-card-title {
-      cursor: pointer;
-      outline: none;
+    [mat-card-title] {
+      font-size: 16px;
+      text-decoration: none !important;
+      color: white;
     }
 
     mat-card-subtitle {
