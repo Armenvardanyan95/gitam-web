@@ -18,4 +18,8 @@ export class TagsComponent {
     private readonly store: Store<GlobalState>,
   ) {}
 
+  stopPropagation(event: MouseEvent) {
+    event.stopPropagation();
+  }
+
 }

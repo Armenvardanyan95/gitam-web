@@ -1,5 +1,5 @@
 <div class="title">
-  <h2>Թեմա՝ {{ tagName | capitalizeFirst }}</h2>
+  <h2>Թեմա՝ <b>{{ tagName | capitalizeFirst }}</b></h2>
 </div>
 <app-article-list [articles]="articles$ | async" (loadMore)="loadArticles()" [finished]="finished$ | async">
 </app-article-list>

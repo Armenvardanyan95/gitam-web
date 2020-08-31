@@ -1,6 +1,6 @@
 <ng-container *ngIf="tags">
   <a *ngFor="let tag of (tags | split | cut : limit)"
-      class="single-tag"
+      class="single-tag" (click)="stopPropagation($event)"
       [ngClass]="{'dark-btn': (isDarkMode$ | async)}"
       mat-button [routerLink]="['/tags', tag]">#{{ tag }}</a>
 </ng-container>

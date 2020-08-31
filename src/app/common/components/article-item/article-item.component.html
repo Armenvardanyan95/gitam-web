@@ -1,5 +1,5 @@
 <div class="article-container">
-  <mat-card [ngStyle]="{
+  <mat-card (click)="redirect($event)" [ngStyle]="{
     'background-image': 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + article.image + ')'}">
     <mat-card-header>
         <a mat-card-title [routerLink]="['/articles', article.id]">{{ article.title }}</a>
@@ -13,11 +13,11 @@
       <button mat-button
               [ngClass]="{spinning: (bookmarkStatusChanging | async)}"
               [matTooltip]="(isInBookmarks$ | async) ? 'Հեռացնել պահպանած հոդվածներից' : 'Պահպանել հոդվածը'">
-        <mat-icon *ngIf="(isInBookmarks$ | async) === false" (click)="addToBookmarks()">bookmark_border</mat-icon>
-        <mat-icon *ngIf="isInBookmarks$ | async" (click)="removeFromBookmarks()">bookmark</mat-icon>
+        <mat-icon *ngIf="(isInBookmarks$ | async) === false" (click)="addToBookmarks($event)">bookmark_border</mat-icon>
+        <mat-icon *ngIf="isInBookmarks$ | async" (click)="removeFromBookmarks($event)">bookmark</mat-icon>
       </button>
       <button mat-button
-              (click)="shareOnSocialMedia()" matTooltip="Կիսվել">
+              (click)="shareOnSocialMedia($event)" matTooltip="Կիսվել">
         <mat-icon>share</mat-icon>
       </button>
     </mat-card-actions>

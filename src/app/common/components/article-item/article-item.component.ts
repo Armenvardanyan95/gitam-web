@@ -10,6 +10,7 @@ import { addToBookmarks, removeFromBookmarks } from 'src/app/state/actions';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ShareOnSocialMediaComponent } from '../share-on-social-media/share-on-social-media.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-article-item',
@@ -29,21 +30,33 @@ export class ArticleItemComponent {
 
   constructor(
     private readonly store: Store<GlobalState>,
+    private readonly router: Router,
     private readonly bottomSheet: MatBottomSheet,
     private readonly snackbar: MatSnackBar,
   ) { }
 
   @Input() article: ArticleModel = null;
 
-  addToBookmarks() {
+  addToBookmarks(event: MouseEvent) {
+    event.stopPropagation();
     this.store.dispatch(addToBookmarks({article: this.article}));
   }
 
-  removeFromBookmarks() {
+  removeFromBookmarks(event: MouseEvent) {
+    event.stopPropagation();
     this.store.dispatch(removeFromBookmarks({id: this.article.id}));
   }
 
-  shareOnSocialMedia() {
+  redirect(event: MouseEvent) {
+    if (event.getModifierState('Control') || event.button === 4) {
+      window.open(`/articles/${this.article.id}`);
+    } else {
+      this.router.navigateByUrl(`/articles/${this.article.id}`);
+    }
+  }
+
+  shareOnSocialMedia(event: MouseEvent) {
+    event.stopPropagation();
     const sheet = this.bottomSheet.open(ShareOnSocialMediaComponent, {data: {article: this.article}});
     sheet.instance.dismissed.subscribe(() => {
       sheet.dismiss();

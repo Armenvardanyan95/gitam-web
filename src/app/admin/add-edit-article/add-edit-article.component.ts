@@ -61,7 +61,9 @@ export class AddEditArticleComponent implements OnInit {
     if (valid) {
       const { id } = decode(localStorage.getItem('token'));
       const article = new ArticleSaveModel(value.title, value.text, (value.tags as string[]).join(','), id);
-      article.image = value.image;
+      if (value.image) {
+        article.image = value.image;
+      }
 
       try {
         this.loading = true;
