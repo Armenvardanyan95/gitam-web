@@ -29,7 +29,7 @@ export class DeleteArticleComponent {
     private readonly articleService: ArticleService,
     private readonly dialogRef: MatDialogRef<DeleteArticleComponent>,
     @Inject(MAT_DIALOG_DATA) private data: ArticleModel,
-  ) {}
+  ) { }
 
   cancel() {
     this.dialogRef.close();
@@ -38,9 +38,9 @@ export class DeleteArticleComponent {
   async delete() {
     try {
       await this.articleService.deleteArticle(this.data.id);
-      this.dialogRef.close({done: true, error: null});
+      this.dialogRef.close({ done: true, error: null });
     } catch (error) {
-      this.dialogRef.close({done: true, error});
+      this.dialogRef.close({ done: true, error });
     }
   }
 
@@ -94,7 +94,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
   async search(query) {
     this.loading = true;
     try {
-      this.articleList = await this.articleService.getArticles(1, (this.pageInfo || {pageSize: 10}).pageSize, query);
+      this.articleList = await this.articleService.getArticles(1, (this.pageInfo || { pageSize: 10 }).pageSize, query);
     } catch (error) {
       // TODO: handle error
     } finally {
@@ -103,7 +103,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
   }
 
   delete(article: ArticleModel) {
-    const dialogRef = this.dialog.open(DeleteArticleComponent, {data: article});
+    const dialogRef = this.dialog.open(DeleteArticleComponent, { data: article });
 
     dialogRef.afterClosed().pipe(
       filter(result => result.done),
