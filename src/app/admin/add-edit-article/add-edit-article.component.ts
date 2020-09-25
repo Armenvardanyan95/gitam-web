@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import * as decode from 'jwt-decode';
 
 import { ArticleSaveModel } from 'src/app/common/models/article.save';
@@ -22,7 +22,7 @@ export class AddEditArticleComponent implements OnInit {
     tags: [[], Validators.required],
     image: [''],
   });
-  editedArticle: ArticleModel =  null;
+  editedArticle: ArticleModel = null;
   loading = false;
   uploadLoading = false;
   file: File = null;
@@ -59,7 +59,7 @@ export class AddEditArticleComponent implements OnInit {
   async save(createAnother = false) {
     const { value, valid } = this.form;
     if (valid) {
-      const { id } = decode(localStorage.getItem('token'));
+      const id = this.editedArticle.author['id'];
       const article = new ArticleSaveModel(value.title, value.text, (value.tags as string[]).join(','), id);
       if (value.image) {
         article.image = value.image;

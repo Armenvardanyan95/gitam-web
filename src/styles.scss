@@ -22,6 +22,10 @@ body {
   width: 60%;
 }
 
+.mat-card-header-text {
+  margin: 0 10px !important;
+}
+
 /**
 * Generated theme by Material Theme Generator
 * https://materialtheme.arcsine.dev
@@ -185,7 +189,7 @@ $mat-primary: (
   darker: #fffeff,
   200: #fffeff,
   // For slide toggle,
-    contrast:
+  contrast:
     (
       main: $dark-primary-text,
       lighter: $dark-primary-text,
@@ -209,7 +213,7 @@ $mat-accent: (
   darker: #082842,
   200: #0e525e,
   // For slide toggle,
-    contrast:
+  contrast:
     (
       main: $light-primary-text,
       lighter: $dark-primary-text,
@@ -233,7 +237,7 @@ $mat-warn: (
   darker: #ff0000,
   200: #ff0000,
   // For slide toggle,
-    contrast:
+  contrast:
     (
       main: $light-primary-text,
       lighter: $dark-primary-text,
@@ -317,13 +321,15 @@ $alternate-button-color: #11e635;
 // Paqo
 .article-item {
   .article-container {
+    .mat-card-title {
+      height: 125px;
+    }
     .mat-card {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       padding: 15px 2px;
-      overflow-y: auto;
-      overflow-x: hidden;
+      overflow: hidden;
       height: 280px !important;
       .card-title {
         line-height: normal;

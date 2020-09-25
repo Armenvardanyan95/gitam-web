@@ -28,6 +28,7 @@ import { ArticleSkeletonsComponent } from './components/article-skeletons/articl
 import { CutPipe } from './pipes/cut.pipe';
 import { AllTagsComponent } from './components/all-tags/all-tags.component';
 import { IncludesPipe } from './pipes/includes.pipe';
+import { EllipsisDirective } from './directives/elipsis.directive';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { IncludesPipe } from './pipes/includes.pipe';
     CutPipe,
     AllTagsComponent,
     IncludesPipe,
+    EllipsisDirective
   ],
   exports: [
     InfiniteScrollComponent,
@@ -58,6 +60,7 @@ import { IncludesPipe } from './pipes/includes.pipe';
     MatBottomSheetModule,
     ArticleSkeletonsComponent,
     AllTagsComponent,
+    EllipsisDirective
   ],
   imports: [
     NgCommonModule,
